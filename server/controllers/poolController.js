@@ -1,6 +1,20 @@
 import Pool from '../models/Pool.js';
 import Driver from '../models/Driver.js';
 
+// Get all bookings of a user
+export const getUserBookings = async (req, res) => {
+  try {
+    const pools = await Pool.find({ passengers: req.user._id })
+      .populate('createdBy')
+      .populate('driverId');
+      
+      // console.log(res);
+    res.status(200).json(pools);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'Server Error' });
+  }
+};
 // Create a new pool
 export const createPool = async (req, res) => {
   const { from, to, seatsAvailable } = req.body;

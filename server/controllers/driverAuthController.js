@@ -59,7 +59,7 @@ export const loginDriver = async (req, res) => {
     const token = jwt.sign({ id: driver._id }, process.env.JWT_SECRET, {
       expiresIn: '7d',
     });
-
+    let user=driver;
   //   driver = {
   //     _id: driver._id,
   //     name: driver.name,
@@ -69,7 +69,8 @@ export const loginDriver = async (req, res) => {
 
   return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'strict' }).json({
       message: `Welcome back ${driver.name}`,
-      driver,
+      user,
+      token,
       success: true
   })
   } catch (err) {

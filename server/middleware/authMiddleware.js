@@ -22,8 +22,9 @@ export const authenticateUser = async (req, res, next) => {
 // Middleware for Driver Authentication
 export const authenticateDriver = async (req, res, next) => {
   const token = req.cookies.token;
-
+  // console.log(token)
   if (!token) {
+    console.log("no token")
     return res.status(401).json({ msg: 'No token, authorization denied' });
   }
 

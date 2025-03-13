@@ -19,6 +19,11 @@ export const AuthProvider = ({ children }) => {
     Cookies.set('role', userRole);
 
     connectSocket(userData._id);
+    socket.on('notification', (data) => {
+      setNotification(data.message);
+      // Clear notification after 5 seconds
+      setTimeout(() => setNotification(null), 5000);
+    });
   };
 
   const logout = () => {
@@ -47,7 +52,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, role, login, logout, isAuthenticated, loading }}>
+    <AuthContext.Provider value={{ user, role, login, logout, isAuthenticated, loading, notification }}>
       {children}
     </AuthContext.Provider>
   );

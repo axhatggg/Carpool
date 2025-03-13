@@ -44,29 +44,32 @@ export const createPool = async (req, res) => {
 // Join an existing pool
 export const joinPool = async (req, res) => {
   const { poolId } = req.params;
-
+  
   try {
     const pool = await Pool.findById(poolId);
-
+    console.log(pool._id);
     if (!pool) {
       return res.status(404).json({ msg: 'Pool not found' });
     }
-
+    console.log("reached")
+    console.log(req.user._id)
     if (pool.passengers.includes(req.user._id)) {
       return res.status(400).json({ msg: 'Already joined the pool' });
     }
-
+    console.log("reached")
     if (pool.seatsAvailable === 0) {
+      console.log("LAuda mera")
       return res.status(400).json({ msg: 'No seats available' });
     }
-
+    console.log("reached")
     pool.passengers.push(req.user._id);
     pool.seatsAvailable -= 1;
 
     await pool.save();
-
+    
     res.status(200).json(pool);
   } catch (err) {
+    console.log("reached")
     console.error(err);
     res.status(500).json({ msg: 'Server Error' });
   }
@@ -88,9 +91,11 @@ export const acceptPool = async (req, res) => {
 
     await pool.save();
     // Notify only the pool creator (user) via socket
-    const userSocketId = global.activeUsers[pool.userId]; // User's socket ID
+    const userSocketId = global.activeUsers[pool.createdBy.toString()]; 
     if (userSocketId) {
-      global.io.to(userSocketId).emit('poolConfirmed', pool);
+      global.io.to(userSocketId).emit('notification', {
+        message: 'Your Pool Ride is Confirmed 🚀'
+      });
     }
 
     res.status(200).json(pool);

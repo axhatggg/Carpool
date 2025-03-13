@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import socket from "../socket/Socket";
+import { useAuth } from '../context/AuthContext';
 
 const UserDashboard = () => {
   const [bookings, setBookings] = useState([]);
@@ -8,6 +9,8 @@ const UserDashboard = () => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [seats, setSeats] = useState("");
+  const { notification } = useAuth();
+
 
   const handleCreatePool = async () => {
     try {
@@ -54,6 +57,11 @@ const UserDashboard = () => {
 
   return (
     <div className="container mx-auto p-6">
+      {notification && (
+        <div className="fixed top-4 right-4 bg-green-600 text-white p-3 rounded-md shadow-lg">
+          {notification}
+        </div>
+      )}
       <h2 className="text-3xl mb-6">User Dashboard</h2>
 
       {/* Create Pool Section */}

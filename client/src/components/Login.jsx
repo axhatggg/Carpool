@@ -18,7 +18,7 @@ const Login = () => {
       const { token, user } = res.data;
 
       login(user, token, role);
-      navigate(role === 'user' ? `/user/${user._id}` : `/driver/${user._id}`);
+      navigate(role === 'user' ? `/user/home` : `/driver/${user._id}`);
     } catch (err) {
       console.error('Login Error:', err);
     }

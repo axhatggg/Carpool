@@ -5,8 +5,10 @@ const socketLogic = (io) => {
   io.on('connection', (socket) => {
     console.log('⚡️ A user connected:', socket.id);
 
+    // activeUsers[userId] = socket.id;
     // Store the user in the global object when they connect
     socket.on('userConnected', (userId) => {
+      console.log('User Joined:', userId);
       global.activeUsers[userId] = socket.id; 
     });
 

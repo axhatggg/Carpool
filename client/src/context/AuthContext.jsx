@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     setRole(userRole);
     Cookies.set('token', token);
     Cookies.set('role', userRole);
-
+    localStorage.setItem('user', JSON.stringify(userData));
     connectSocket(userData._id);
     socket.on('notification', (data) => {
       setNotification(data.message);
@@ -31,6 +31,7 @@ export const AuthProvider = ({ children }) => {
     setRole(null);
     Cookies.remove('token');
     Cookies.remove('role');
+    localStorage.removeItem('user'); // Clear localStorage
     socket.disconnect();
   };
 
@@ -42,12 +43,24 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const token = Cookies.get('token');
     const userRole = Cookies.get('role');
+    
     if (token && userRole) {
       setRole(userRole);
+  
+      // Connect socket globally when app loads
+      const userData = JSON.parse(localStorage.getItem('user'));
+      if (userData) {
+        setUser(userData);
+        connectSocket(userData._id); 
+  
+        socket.on('notification', (data) => {
+          console.log('notification aya')
+          setNotification(data.message);
+          setTimeout(() => setNotification(null), 5000); // Clear notification after 5 sec
+        });
+      }
     }
-
-    
-
+  
     setLoading(false);
   }, []);
 

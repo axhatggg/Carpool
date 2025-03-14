@@ -9,6 +9,8 @@ const poolSchema = new mongoose.Schema({
   driverId: { type: mongoose.Schema.Types.ObjectId, ref: 'Driver', default: null },
   status: { type: String, enum: ['Pending', 'Confirmed', 'Completed'], default: 'Pending' },
   createdAt: { type: Date, default: Date.now },
+  pickupTime: String,  
+  pickupLocation: String
 });
 
 const Pool = mongoose.model('Pool', poolSchema);

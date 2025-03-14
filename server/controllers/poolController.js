@@ -17,7 +17,7 @@ export const getUserBookings = async (req, res) => {
 };
 // Create a new pool
 export const createPool = async (req, res) => {
-  const { from, to, seatsAvailable } = req.body;
+  const { from, to, seatsAvailable, pickupTime, pickupLocation } = req.body;
 
   try {
     const newPool = new Pool({
@@ -27,6 +27,8 @@ export const createPool = async (req, res) => {
       seatsAvailable,
       passengers: [req.user._id],
       status: 'Pending',
+      pickupTime, 
+      pickupLocation
     });
 
     await newPool.save();
@@ -91,12 +93,15 @@ export const acceptPool = async (req, res) => {
 
     await pool.save();
     // Notify only the pool creator (user) via socket
-    const userSocketId = global.activeUsers[pool.createdBy.toString()]; 
-    if (userSocketId) {
-      global.io.to(userSocketId).emit('notification', {
-        message: 'Your Pool Ride is Confirmed 🚀'
-      });
-    }
+    pool.passengers.forEach((passengerId) => {
+      const userSocketId = global.activeUsers[passengerId.toString()]; 
+    
+      if (userSocketId) {
+        global.io.to(userSocketId).emit('notification', {
+          message: 'Your Pool Ride is Confirmed 🚀'
+        });
+      }
+    });
 
     res.status(200).json(pool);
   } catch (err) {
@@ -109,6 +114,16 @@ export const acceptPool = async (req, res) => {
 export const getAllPools = async (req, res) => {
   try {
     const pools = await Pool.find({ status: 'Pending' }).populate('createdBy').populate('passengers');
+    res.status(200).json(pools);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ msg: 'Server Error' });
+  }
+};
+
+export const confirmPools = async (req, res) => {
+  try {
+    const pools = await Pool.find({ status: 'Confirmed' }).populate('createdBy').populate('passengers');
     res.status(200).json(pools);
   } catch (err) {
     console.error(err);

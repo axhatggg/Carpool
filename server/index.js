@@ -49,9 +49,10 @@ const io = new Server(server, {
   },
 });
 
-global.io = io;
-// Global Object to Track Active Users
-global.activeUsers = {};
+if (!global.io) {
+  global.io = io; 
+  global.activeUsers = {}; // Store active users
+}
 
 // Socket Logic
 socketLogic(io);

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import socket from '../socket/Socket';
+import Navbar from "./Navbar";
 
 const DriverDashboard = () => {
   const [pools, setPools] = useState([]);
@@ -27,6 +28,8 @@ const DriverDashboard = () => {
   }, []);
 
   return (
+    <>
+    <Navbar />
     <div className="container mx-auto p-6">
       <h2 className="text-3xl mb-6">Active Pool Requests</h2>
       <ul>
@@ -43,6 +46,7 @@ const DriverDashboard = () => {
         ))}
       </ul>
     </div>
+    </>
   );
 };
 

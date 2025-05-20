@@ -67,7 +67,12 @@ export const loginDriver = async (req, res) => {
   //     phone: driver.phone,
   // }
 
-  return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'strict' }).json({
+  return res.status(200).cookie("token", token, {
+     httpOnly: true,             // Prevent JS access
+    secure: true,               // Required for HTTPS
+    sameSite: 'None',           // Required for cross-site
+    maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day
+    }).json({
       message: `Welcome back ${driver.name}`,
       user,
       token,

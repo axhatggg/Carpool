@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 
 const UserHomePage = () => {
   const [pools, setPools] = useState([]);
-  const { user } = useAuth();
+  const { user, role } = useAuth();
   const [confPools, setConfPools] = useState([]);
   const navigate = useNavigate();
 
@@ -55,6 +55,10 @@ const UserHomePage = () => {
   useEffect(() => {
     fetchPools();
     fetchConfirmPools();
+    if(role === 'driver')
+    {
+      navigate(`/driver/${user._id}`);
+    }
   }, []);
 
   return (

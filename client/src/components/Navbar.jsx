@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-  const { user, logout } = useAuth();
+  const { user, role, logout } = useAuth();
 
   const handleLogout = async () => {
     try {
@@ -28,7 +28,13 @@ const Navbar = () => {
         {user ? (
           <>
             <span className="font-semibold text-white">Welcome, {user.name}!</span>
-            <button className='mx-1 cursor-pointer font-semibold text-white'><Link to="/">Home</Link></button>
+
+            {role !== 'driver' && (
+              <button className='mx-1 cursor-pointer font-semibold text-white'>
+                <Link to="/">Home</Link>
+              </button>
+            )}
+
             <button 
               className='mx-1 cursor-pointer font-semibold text-white'
               onClick={handleLogout}

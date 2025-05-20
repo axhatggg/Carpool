@@ -13,7 +13,7 @@ const UserHomePage = () => {
 
   const fetchPools = async () => {
     try {
-      let res = await axios.get("http://localhost:8000/api/pools/all");
+      let res = await axios.get("https://carpool-1.onrender.com/api/pools/all");
       setPools(res.data);
     } catch (error) {
       console.error("Error fetching pools:", error);
@@ -22,7 +22,7 @@ const UserHomePage = () => {
 
   const fetchConfirmPools = async () => {
     try {
-      let res = await axios.get("http://localhost:8000/api/pools/confirm/all");
+      let res = await axios.get("https://carpool-1.onrender.com/api/pools/confirm/all");
       setConfPools(res.data);
     } catch (error) {
       console.error("Error fetching pools:", error);
@@ -33,7 +33,7 @@ const UserHomePage = () => {
     try {
       const token = Cookies.get("token");
       const res = await axios.post(
-        `http://localhost:8000/api/pools/join/${poolId}`,
+        `https://carpool-1.onrender.com/api/pools/join/${poolId}`,
         {},
         {
           headers: {

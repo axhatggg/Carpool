@@ -1,6 +1,6 @@
 import { io } from 'socket.io-client';
 
-const socket = io('http://localhost:8000');
+const socket = io('https://carpool-1.onrender.com');
 
 export const connectSocket = (userId) => {
   socket.emit('userConnected', userId);

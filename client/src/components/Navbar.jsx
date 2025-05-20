@@ -7,7 +7,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     try {
-      const res = await fetch('http://localhost:8000/api/auth/logout', {
+      const res = await fetch('https://carpool-1.onrender.com/api/auth/logout', {
         method: 'POST',
         credentials: 'include' // Send cookies to backend
       });

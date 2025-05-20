@@ -6,13 +6,13 @@ const DriverDashboard = () => {
   const [pools, setPools] = useState([]);
 
   const fetchPools = async () => {
-    const res = await axios.get('http://localhost:8000/api/pools/all', { withCredentials: true });
+    const res = await axios.get('https://carpool-1.onrender.com/api/pools/all', { withCredentials: true });
     setPools(res.data);
   };
 
   const acceptPool = async (poolId) => {
     console.log(poolId)
-    await axios.post(`http://localhost:8000/api/pools/accept/${poolId}`, {}, { withCredentials: true });
+    await axios.post(`https://carpool-1.onrender.com/api/pools/accept/${poolId}`, {}, { withCredentials: true });
     fetchPools();
   };
 

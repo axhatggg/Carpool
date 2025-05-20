@@ -16,8 +16,8 @@ const Register = () => {
     e.preventDefault();
 
     const apiUrl = role === 'user'
-      ? 'http://localhost:8000/api/auth/user/register'
-      : 'http://localhost:8000/api/auth/driver/register';
+      ? 'https://carpool-1.onrender.com/api/auth/user/register'
+      : 'https://carpool-1.onrender.com/api/auth/driver/register';
 
     const userData = {
       name,

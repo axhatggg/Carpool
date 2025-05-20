@@ -20,7 +20,7 @@ const UserDashboard = () => {
   const handleCreatePool = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/pools/create",
+        "https://carpool-1.onrender.com/api/pools/create",
         { from, to, seatsAvailable: 4, pickupLocation, pickupTime },
         { withCredentials: true }
       );
@@ -38,7 +38,7 @@ const UserDashboard = () => {
 
   const fetchBookings = async () => {
     const res = await axios.get(
-      "http://localhost:8000/api/pools/user/bookings",
+      "https://carpool-1.onrender.com/api/pools/user/bookings",
       { withCredentials: true }
     );
     setBookings(res.data);

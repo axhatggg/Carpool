@@ -18,7 +18,7 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: 'http://localhost:5173', // Your React frontend URL
+  origin: 'https://carpool-2.onrender.com', // Your React frontend URL
   methods: ['GET', 'POST'],
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
 }));
@@ -44,7 +44,7 @@ app.use('/api/driver', driverRoutes); // Driver Routes
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:5173', // React Frontend
+    origin: 'https://carpool-2.onrender.com', // React Frontend
     methods: ['GET', 'POST'],
   },
 });

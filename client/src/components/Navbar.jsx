@@ -21,16 +21,16 @@ const Navbar = () => {
   };
 
   return (
-    <div className='bg-slate-200 shadow-black shadow-lg flex justify-between items-center px-7 '>
-      <h1 className='font-black text-4xl mx-3 my-3'>Car<span className='text-teal-900'>Pool</span></h1>
+    <div className='bg-black fixed w-screen z-2 shadow-black flex justify-around items-center px-7 '>
+      <h1 className='font-black text-white text-4xl mx-3 my-3'>Share<span className='text-amber-300'>Wheels</span></h1>
 
       <div className='flex gap-4'>
         {user ? (
           <>
-            <span className="font-semibold text-teal-900">Welcome, {user.name}!</span>
-            <button className='mx-1 cursor-pointer font-semibold'><Link to="/">Home</Link></button>
+            <span className="font-semibold text-white">Welcome, {user.name}!</span>
+            <button className='mx-1 cursor-pointer font-semibold text-white'><Link to="/">Home</Link></button>
             <button 
-              className='mx-1 cursor-pointer font-semibold text-red-600'
+              className='mx-1 cursor-pointer font-semibold text-white'
               onClick={handleLogout}
             >
               Logout
@@ -38,8 +38,8 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <button className='mx-1 cursor-pointer font-semibold'><Link to="/register">Register</Link></button>
-            <button className='mx-1 cursor-pointer font-semibold'><Link to="/login">Sign In</Link></button>
+            <button className='mx-1 cursor-pointer font-semibold text-white'><Link to="/register">Register</Link></button>
+            <button className='mx-1 cursor-pointer font-semibold text-white'><Link to="/login">Sign In</Link></button>
           </>
         )}
       </div>
